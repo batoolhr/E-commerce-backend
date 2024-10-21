@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "noFallthroughCasesInSwitch": false,
+      "target": "ES6",                         // Target ECMAScript version
+      "module": "CommonJS",                    // Module system (CommonJS for Node.js)
+      "strict": true,                          // Enable all strict type-checking options
+      "esModuleInterop": true,                 // Compatibility with CommonJS modules
+      "skipLibCheck": true,                    // Skip type checking of declaration files
+      "forceConsistentCasingInFileNames": true // Enforce consistent casing in file names
+  
+}
+}
