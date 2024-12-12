@@ -27,6 +27,11 @@ export class ProductsController {
     return await this.productsService.findAll();
   }
 
+  @Get('/limit')
+  async listLimitProducts() {
+    return await this.productsService.findLimitProducts();
+  }
+
   @Get('/single/:categoryName')
   async findOne(@Param('categoryName') categoryName: string) {
     return await this.productsService.findOne(categoryName);

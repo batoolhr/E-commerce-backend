@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, PipelineStage } from 'mongoose';
 import { Product } from './schema/products.schema';
 import { CategoriesService } from '../categories/categories.service';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { error } from 'console';
-// https://m.media-amazon.com/images/I/61tPyctcoHL._AC_SX679_.jpg
 @Injectable()
 export class ProductsService {
   constructor(
@@ -25,6 +24,21 @@ export class ProductsService {
 
   async findAll() {
     return await this.productModel.find().exec();
+  }
+
+  async findLimitProducts() {
+    //@TODO:Handle limit in specific category
+    const pipeline = [
+      // {
+      //   $match: {
+      //     category: categoryId,
+      //   },
+      // },
+      { $limit: 4 },
+    ];
+
+    const products = await this.productModel.aggregate(pipeline).exec();
+    return products;
   }
 
   async findOne(categoryName: string) {
