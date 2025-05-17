@@ -3,7 +3,7 @@ import mongoose, { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({
     default: () => new mongoose.Types.ObjectId().toString(),
@@ -11,9 +11,17 @@ export class User {
   })
   _id: string;
 
+  @Prop({ required: true, unique: true })
+  username: string;
+
+  @Prop({ required: true })
+  password: string;
+
+  @Prop({ required: true, unique: true })
+  email: string;
+
   @Prop()
   name: string;
-  @Prop()
-  email: string;
 }
+
 export const UserSchema = SchemaFactory.createForClass(User);

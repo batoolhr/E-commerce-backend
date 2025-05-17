@@ -11,6 +11,7 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from '../auth/decorators/public.decorator';
 
 @ApiTags('Products')
 @Controller('products')
@@ -22,6 +23,7 @@ export class ProductsController {
     return await this.productsService.create(payload);
   }
 
+  @Public()
   @Get('/list')
   async findAll() {
     return await this.productsService.findAll();
@@ -32,6 +34,7 @@ export class ProductsController {
     return await this.productsService.findLimitProducts();
   }
 
+  @Public()
   @Get('/single/:categoryName')
   async findOne(@Param('categoryName') categoryName: string) {
     return await this.productsService.findOne(categoryName);

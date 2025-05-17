@@ -12,6 +12,7 @@ import { CategoriesService } from './categories.service';
 import { Category } from './schema/categories.schema';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDto } from './dto/createCategory.dto';
+import { Public } from '../auth/decorators/public.decorator';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -22,6 +23,7 @@ export class CategoriesController {
   async create(@Body() payload: CreateCategoryDto) {
     return await this.categoriesService.create(payload);
   }
+  @Public()
   @Get('/list')
   async findAll(): Promise<Category[]> {
     return await this.categoriesService.findAll();

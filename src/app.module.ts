@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductsModule } from './modules/products/products.module';
@@ -9,6 +12,9 @@ import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     MongooseModule.forRoot(
       process.env.DB_CONNECTION_STRING ||
         'mongodb://localhost:27017/e-commerce',
@@ -19,6 +25,12 @@ import { UsersModule } from './modules/users/users.module';
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}
